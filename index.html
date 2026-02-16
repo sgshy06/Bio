@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Granny Bio</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    color:white;
+    background: url("granny.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+header{
+    position:fixed;
+    top:15px;
+    right:20px;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.lang-btn{
+    cursor:pointer;
+    color:white;
+    margin-left:10px;
+}
+
+nav{
+    position:fixed;
+    top:60px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:10px;
+    z-index:1000;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    padding:8px 12px;
+    border:2px solid white;
+    border-radius:8px;
+    background: rgba(0,0,0,0.5);
+    transition:0.3s;
+}
+
+nav a:hover{
+    background:white;
+    color:black;
+}
+
+.page{
+    display:none;
+    padding:120px 20px 20px 20px;
+    text-align:center;
+}
+
+.page.active{
+    display:block;
+}
+
+.card{
+    margin:auto;
+    width:360px;
+    background: rgba(0,0,0,0.5);
+    padding:30px;
+    border-radius:12px;
+    border:2px solid white;
+}
+
+.card p, .card h1, .card a, .card button{
+    text-shadow:
+       -1px -1px 0 #000,  
+        1px -1px 0 #000,
+       -1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+button{
+    background: rgba(0,0,0,0.75);
+    border:2px solid white;
+    color:white;
+    padding:15px 30px;
+    border-radius:10px;
+    font-size:18px;
+    margin-top:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:white;
+    color:black;
+}
+
+a.link-btn{
+    display:block;
+    width:80%;
+    margin:15px auto;
+    padding:15px 30px;
+    border:2px solid white;
+    border-radius:10px;
+    text-decoration:none;
+    color:white;
+    background: rgba(0,0,0,0.75);
+    font-size:18px;
+    transition:0.3s;
+    text-align:center;
+}
+
+a.link-btn:hover{
+    background:white;
+    color:black;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <span class="lang-btn" onclick="setLang('ru')">RU</span> |
+    <span class="lang-btn" onclick="setLang('en')">EN</span>
+</header>
+
+<nav>
+    <a href="#" id="nav-about" onclick="showPage('about')">Обо мне</a>
+    <a href="#" id="nav-mods" onclick="showPage('mods')">Моды</a>
+    <a href="#" id="nav-contacts" onclick="showPage('contacts')">Контакты</a>
+    <a href="#" id="nav-settings" onclick="showPage('settings')">Настройки</a>
+</nav>
+
+<!-- Страница "Обо мне" -->
+<div id="about" class="page active">
+    <div class="card">
+        <h1 id="title">Обо мне</h1>
+        <p id="age">Возраст: ?</p>
+        <p id="country">Страна: 🇰🇿</p>
+        <a class="link-btn" id="speedrun" href="https://www.speedrun.com/users/Sgshy" target="_blank">аккаунт на Speedrun.com</a>
+    </div>
+</div>
+
+<!-- Страница "Моды" -->
+<div id="mods" class="page">
+    <div class="card">
+        <h1 id="mods-title">Моды</h1>
+        <a class="link-btn" id="mods-link" href="https://t.me/grannylegacygast" target="_blank">Granny Mods Channel</a>
+    </div>
+</div>
+
+<!-- Страница "Контакты" -->
+<div id="contacts" class="page">
+    <div class="card">
+        <h1 id="contacts-title">Контакты</h1>
+        <a class="link-btn" id="contacts-telegram" href="https://t.me/Sgshy06" target="_blank">Telegram</a>
+        <a class="link-btn" id="contacts-tiktok" href="https://www.tiktok.com/@sghsy06" target="_blank">TikTok</a>
+    </div>
+</div>
+
+<!-- Страница "Настройки" -->
+<div id="settings" class="page">
+    <div class="card">
+        <h1 id="settings-title">Настройки</h1>
+        <button id="music-btn" onclick="toggleMusic()">Включить/Выключить музыку</button>
+        <p id="bg-text">Сменить фон:</p>
+        <button id="bg-btn" onclick="cycleBackground()">Изменить фон</button>
+    </div>
+</div>
+
+<audio id="music" loop autoplay>
+    <source src="granny-ambience.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let music = document.getElementById("music");
+
+function toggleMusic(){
+    if(!music) return;
+    if(music.paused){
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+function setLang(lang){
+    if(lang === "ru"){
+        // Навигация
+        document.getElementById("nav-about").innerText = "Обо мне";
+        document.getElementById("nav-mods").innerText = "Моды";
+        document.getElementById("nav-contacts").innerText = "Контакты";
+        document.getElementById("nav-settings").innerText = "Настройки";
+
+        // Страница Обо мне
+        document.getElementById("title").innerText = "Обо мне";
+        document.getElementById("age").innerText = "Возраст: ?";
+        document.getElementById("country").innerText = "Страна: 🇰🇿";
+        document.getElementById("speedrun").innerText = "аккаунт на Speedrun.com";
+
+        // Страница Моды
+        document.getElementById("mods-title").innerText = "Моды";
+        document.getElementById("mods-link").innerText = "Granny Mods Channel";
+
+        // Страница Контакты
+        document.getElementById("contacts-title").innerText = "Контакты";
+        document.getElementById("contacts-telegram").innerText = "Telegram";
+        document.getElementById("contacts-tiktok").innerText = "TikTok";
+
+        // Страница Настройки
+        document.getElementById("settings-title").innerText = "Настройки";
+        document.getElementById("music-btn").innerText = "Включить/Выключить музыку";
+        document.getElementById("bg-text").innerText = "Сменить фон:";
+        document.getElementById("bg-btn").innerText = "Изменить фон";
+    } else {
+        // Навигация
+        document.getElementById("nav-about").innerText = "About Me";
+        document.getElementById("nav-mods").innerText = "Mods";
+        document.getElementById("nav-contacts").innerText = "Contacts";
+        document.getElementById("nav-settings").innerText = "Settings";
+
+        // Страница Обо мне
+        document.getElementById("title").innerText = "About Me";
+        document.getElementById("age").innerText = "Age: ?";
+        document.getElementById("country").innerText = "Country: 🇰🇿";
+        document.getElementById("speedrun").innerText = "account on Speedrun.com";
+
+        // Страница Моды
+        document.getElementById("mods-title").innerText = "Mods";
+        document.getElementById("mods-link").innerText = "Granny Mods Channel";
+
+        // Страница Контакты
+        document.getElementById("contacts-title").innerText = "Contacts";
+        document.getElementById("contacts-telegram").innerText = "Telegram";
+        document.getElementById("contacts-tiktok").innerText = "TikTok";
+
+        // Страница Настройки
+        document.getElementById("settings-title").innerText = "Settings";
+        document.getElementById("music-btn").innerText = "Toggle Music";
+        document.getElementById("bg-text").innerText = "Change Background:";
+        document.getElementById("bg-btn").innerText = "Change Background";
+    }
+}
+
+function showPage(id){
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+const backgrounds = ['granny.jpg','granny2.jpg','granny3.jpg','sgshy06.jpg'];
+let bgIndex = 0;
+function cycleBackground(){
+    bgIndex = (bgIndex + 1) % backgrounds.length;
+    document.body.style.backgroundImage = `url('${backgrounds[bgIndex]}')`;
+}
+</script>
+
+</body>
+</html>
